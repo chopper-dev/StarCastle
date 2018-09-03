@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StartCastle", "StartCastle\StartCastle.vcxproj", "{75AD24D9-4763-44DD-A498-BA9F0B182DFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Debug|x64.ActiveCfg = Debug|x64
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Debug|x64.Build.0 = Debug|x64
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Debug|x86.ActiveCfg = Debug|Win32
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Debug|x86.Build.0 = Debug|Win32
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Release|x64.ActiveCfg = Release|x64
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Release|x64.Build.0 = Release|x64
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Release|x86.ActiveCfg = Release|Win32
+		{75AD24D9-4763-44DD-A498-BA9F0B182DFE}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FE66F88-3D8E-4604-810B-1AF9B92991D7}
+	EndGlobalSection
+EndGlobal

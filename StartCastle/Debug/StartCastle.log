@@ -1,0 +1,43 @@
+﻿  main.cpp
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(179): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(190): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(236): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(238): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(265): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(267): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(286): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(286): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(297): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(299): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(327): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(329): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(335): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(337): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(343): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(345): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\crist\source\repos\startcastle\startcastle\main.cpp(381): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  StartCastle.vcxproj -> C:\Users\Crist\source\repos\StartCastle\Debug\StartCastle.exe
