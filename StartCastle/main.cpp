@@ -269,7 +269,7 @@ void TransformMotherShipPoints() {
 	}
 	/*
 	Mat3 aux_wing_right = Mat3Identity();
-	aux_wing_right = Mat3MultiplyMat3(Mat3Rotate((esat::fPI / 3),0),aux_wing_right);
+	aux_wing_right = Mat3MultiplyMat3(Mat3Rotate((fPI / 3),0),aux_wing_right);
 	aux_wing_right = Mat3MultiplyMat3(Mat3Scale(0.5f,0.7f),aux_wing_right);
 	aux_wing_right = Mat3MultiplyMat3(Mat3Translate(0.4f,-0.8f),aux_wing_right);
 	aux_wing_right = Mat3MultiplyMat3(aux_points,aux_wing_right);
@@ -322,26 +322,26 @@ void DrawShipPlayer() {
 
 	for (int i = 0; i < number_of_ship_lines; ++i) {
 		Vertex ship_lines[2];
-		ship_lines[0].position = sf::Vector2f(player_ship.points_transformed[i].x, player_ship.points_transformed[i].y);
-		ship_lines[0].color = sf::Color::Red;
-		ship_lines[1].position = sf::Vector2f(player_ship.points_transformed[i + 1].x, player_ship.points_transformed[i + 1].y);
-		ship_lines[1].color = sf::Color::Red;
+		ship_lines[0].position = Vector2f(player_ship.points_transformed[i].x, player_ship.points_transformed[i].y);
+		ship_lines[0].color = Color::Red;
+		ship_lines[1].position = Vector2f(player_ship.points_transformed[i + 1].x, player_ship.points_transformed[i + 1].y);
+		ship_lines[1].color = Color::Red;
 		//window.draw(ship_lines, 2, Lines);
 	}
 	//right cannon
 	Vertex right_cannon[2];
-	right_cannon[0].position = sf::Vector2f(player_ship.cannons_points_transformed[0].x, player_ship.cannons_points_transformed[0].y);
-	right_cannon[0].color = sf::Color::Red;
-	right_cannon[1].position = sf::Vector2f(player_ship.cannons_points_transformed[1].x, player_ship.cannons_points_transformed[1].y);
-	right_cannon[1].color = sf::Color::Red;
+	right_cannon[0].position = Vector2f(player_ship.cannons_points_transformed[0].x, player_ship.cannons_points_transformed[0].y);
+	right_cannon[0].color = Color::Red;
+	right_cannon[1].position = Vector2f(player_ship.cannons_points_transformed[1].x, player_ship.cannons_points_transformed[1].y);
+	right_cannon[1].color = Color::Red;
 	//window.draw(right_cannon, 2, Lines);
 
 	//left cannon
 	Vertex left_cannon[2];
-	left_cannon[0].position = sf::Vector2f(player_ship.cannons_points_transformed[2].x, player_ship.cannons_points_transformed[2].y);
-	left_cannon[0].color = sf::Color::Red;
-	left_cannon[1].position = sf::Vector2f(player_ship.cannons_points_transformed[3].x, player_ship.cannons_points_transformed[3].y);
-	left_cannon[1].color = sf::Color::Red;
+	left_cannon[0].position = Vector2f(player_ship.cannons_points_transformed[2].x, player_ship.cannons_points_transformed[2].y);
+	left_cannon[0].color = Color::Red;
+	left_cannon[1].position = Vector2f(player_ship.cannons_points_transformed[3].x, player_ship.cannons_points_transformed[3].y);
+	left_cannon[1].color = Color::Red;
 	//window.draw(left_cannon, 2, Lines);
 
 }
@@ -374,7 +374,7 @@ int main(int argc, char **argv) {
 	clock_t current_time, last_time;
 	unsigned char fps = 25;
 
-	RenderWindow window(sf::VideoMode(kWindowX, kWindowY), "Start Castle");
+	RenderWindow window(VideoMode(kWindowX, kWindowY), "Start Castle");
 	window.setMouseCursorVisible(true);
 	srand(time(NULL));
 
@@ -400,5 +400,6 @@ int main(int argc, char **argv) {
 	}
 	free(ring.current_point);
 	free(ring.next_point);
-		return 0;
+	
+	return 0;
 }
