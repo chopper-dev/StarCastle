@@ -41,6 +41,9 @@ MotherShip mother_ship;
 struct Ring {
 	int segments;
 	int number_of_points;
+	int number_of_rings;
+	float min_dimension_x;
+	float min_dimension_y;
 	struct Vec2 *current_point;
 	struct Vec2 *next_point;
 };
@@ -167,9 +170,12 @@ void InitMotherShip() {
 }
 void InitRing() {
 	ring.segments = 12;
-	ring.number_of_points = 4;
-	ring.current_point = (Vec2*)malloc(ring.segments * ring.number_of_points * sizeof(Vec2));
-	ring.next_point = (Vec2*)malloc(ring.segments * ring.number_of_points * sizeof(Vec2));
+	ring.number_of_points = 2;
+	ring.number_of_rings = 3;
+	ring.min_dimension_x = 20.0f;
+	ring.min_dimension_y = 20.0f;
+	ring.current_point = (Vec2*)malloc(ring.number_of_rings * ring.segments * ring.number_of_points * sizeof(Vec2));
+	ring.next_point = (Vec2*)malloc(ring.number_of_rings * ring.segments * ring.number_of_points * sizeof(Vec2));
 
 }
 void Input() {
@@ -279,7 +285,8 @@ void TransformMotherShipPoints() {
 	}
 	*/
 }
-void TransformRingsPoints(int dimension_x, int dimension_y) {
+void TransformRingsPoints() {
+	int total_segments = ring.segments * ring.number_of_rings;
 
 	const float a = (fPI * 2) / ring.number_of_points;
 	const float radio = 1.0f;
@@ -289,32 +296,35 @@ void TransformRingsPoints(int dimension_x, int dimension_y) {
 	float s = 0;
 	float c = 1;
 
-	for (int current_segment = 0; current_segment < ring.segments; ++current_segment) {
-		Mat3 m = Mat3Identity();
-		m = Mat3MultiplyMat3(Mat3Translate(0.0f, 3.5f), m);
-		m = Mat3MultiplyMat3(Mat3Scale(dimension_x, dimension_y), m);
-		m = Mat3MultiplyMat3(Mat3Rotate(clock()/ 1000.0f), m);
-		m = Mat3MultiplyMat3(Mat3Rotate((fPI * 2.0f) / ring.segments * current_segment), m);
-		m = Mat3MultiplyMat3(Mat3Translate(kWindowX * 0.5f, kWindowY * 0.5f), m);
+	for (int current_ring = 0; current_ring < ring.number_of_rings; ++current_ring) {
+		for (int current_segment = ring.segments * current_ring; current_segment < total_segments; ++current_segment) {
+			Mat3 m = Mat3Identity();
+			m = Mat3MultiplyMat3(Mat3Translate(0.0f, 3.5f), m);
+			m = Mat3MultiplyMat3(Mat3Scale(ring.min_dimension_x + ring.min_dimension_x * 0.5f * current_ring, ring.min_dimension_y + ring.min_dimension_y * 0.5f * current_ring), m);
+			current_ring % 2 ? m = Mat3MultiplyMat3(Mat3Rotate(clock() / 1000.0f), m) : m = Mat3MultiplyMat3(Mat3Rotate(-(clock() / 1000.0f)), m);
+			m = Mat3MultiplyMat3(Mat3Rotate((fPI * 2.0f) / ring.segments * current_segment ), m);
+			m = Mat3MultiplyMat3(Mat3Translate(kWindowX * 0.5f, kWindowY * 0.5f), m);
 
-		for (int i = 0; i < ring.number_of_points; ++i) {
-			float s_next = s * ca + c * sa;
-			float c_next = c * ca - s * sa;
+			for (int i = 0; i < ring.number_of_points; ++i) {
+				float s_next = s * ca + c * sa;
+				float c_next = c * ca - s * sa;
 
-			Vec2 p;
-			p.x = c * radio;
-			p.y = s * radio;
-			*(ring.current_point + current_segment) = Mat3MultiplyVec2(m, p);
+				Vec2 p;
+				p.x = c * radio;
+				p.y = s * radio;
+				*(ring.current_point + current_segment) = Mat3MultiplyVec2(m, p);
 
-			Vec2 p_next;
-			p_next.x = c_next * radio;
-			p_next.y = s_next * radio;
-			*(ring.next_point + current_segment) = Mat3MultiplyVec2(m, p_next);
+				Vec2 p_next;
+				p_next.x = c_next * radio;
+				p_next.y = s_next * radio;
+				*(ring.next_point + current_segment) = Mat3MultiplyVec2(m, p_next);
 
-			s = s_next;
-			c = c_next;
+				s = s_next;
+				c = c_next;
+			}
 		}
 	}
+	
 }
 void DrawShipPlayer(RenderWindow& window) {
 	int number_of_ship_lines = 4;
@@ -359,24 +369,19 @@ void DrawMotherShip(RenderWindow& window) {
 
 }
 void DrawRing(RenderWindow& window) {
-	for (int i = 0; i < ring.segments; ++i) {
-		for (int j = 0; j < ring.number_of_points; ++j) {
-			Vec2 current = *(ring.current_point + i + j);
-			Vec2 next = *(ring.next_point + i + j);
-			float current_x = current.x;
-			float current_y = current.y;
-			float next_x = next.x;
-			float next_y = next.y;
+	int total_segments = ring.segments * ring.number_of_rings;
 
-			Vertex ring_lines[2];
-			ring_lines[0].position = Vector2f(current_x, current_y);
-			ring_lines[0].color = Color::Magenta;
-			ring_lines[1].position = Vector2f(next_x, next_y);
-			ring_lines[1].color = Color::Red;
-			window.draw(ring_lines, 2, Lines);
-		}
+	for (int current_segment = 0; current_segment < total_segments; ++current_segment) {
+		Vec2 current = *(ring.current_point + current_segment);
+		Vec2 next = *(ring.next_point + current_segment);
+
+		Vertex ring_lines[2];
+		ring_lines[0].position = Vector2f(current.x, current.y);
+		ring_lines[0].color = Color::Magenta;
+		ring_lines[1].position = Vector2f(next.x, next.y);
+		ring_lines[1].color = Color::Red;
+		window.draw(ring_lines, 2, Lines);
 	}
-
 }
 void Inits() {
 	InitShip();
@@ -388,9 +393,8 @@ void Updates() {
 	JoinLimits();
 	MoveShipPlayer();
 	TransformShipPlayerPoints();
-	TransformMotherShipPoints();
-	TransformRingsPoints(20, 20);
-	TransformRingsPoints(40, 40);
+	TransformMotherShipPoints();	
+	TransformRingsPoints();
 }
 void Draws( RenderWindow& window) {
 	DrawShipPlayer(window);
