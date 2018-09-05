@@ -12,7 +12,7 @@
 
 unsigned int kWindowX = 800, kWindowY = 600;
 
-const double fPI = 3.1415927;
+const float fPI = 3.1415927;
 
 using namespace sf;
 
@@ -316,7 +316,7 @@ void TransformRingsPoints(int dimension_x, int dimension_y) {
 		}
 	}
 }
-void DrawShipPlayer() {
+void DrawShipPlayer(RenderWindow& window) {
 	int number_of_ship_lines = 4;
 
 
@@ -326,7 +326,7 @@ void DrawShipPlayer() {
 		ship_lines[0].color = Color::Red;
 		ship_lines[1].position = Vector2f(player_ship.points_transformed[i + 1].x, player_ship.points_transformed[i + 1].y);
 		ship_lines[1].color = Color::Red;
-		//window.draw(ship_lines, 2, Lines);
+		window.draw(ship_lines, 2, Lines);
 	}
 	//right cannon
 	Vertex right_cannon[2];
@@ -334,7 +334,7 @@ void DrawShipPlayer() {
 	right_cannon[0].color = Color::Red;
 	right_cannon[1].position = Vector2f(player_ship.cannons_points_transformed[1].x, player_ship.cannons_points_transformed[1].y);
 	right_cannon[1].color = Color::Red;
-	//window.draw(right_cannon, 2, Lines);
+	window.draw(right_cannon, 2, Lines);
 
 	//left cannon
 	Vertex left_cannon[2];
@@ -342,10 +342,42 @@ void DrawShipPlayer() {
 	left_cannon[0].color = Color::Red;
 	left_cannon[1].position = Vector2f(player_ship.cannons_points_transformed[3].x, player_ship.cannons_points_transformed[3].y);
 	left_cannon[1].color = Color::Red;
-	//window.draw(left_cannon, 2, Lines);
+	window.draw(left_cannon, 2, Lines);
 
 }
+void DrawMotherShip(RenderWindow& window) {
+	int number_of_mothership_lines = 10;
 
+	for (int i = 0; i < number_of_mothership_lines; ++i) {
+		Vertex mothership_lines[2];
+		mothership_lines[0].position = Vector2f(mother_ship.points_transformed[i].x, mother_ship.points_transformed[i].y);
+		mothership_lines[0].color = Color::Magenta;
+		mothership_lines[1].position = Vector2f(mother_ship.points_transformed[i + 1].x, mother_ship.points_transformed[i + 1].y);
+		mothership_lines[1].color = Color::Red;
+		window.draw(mothership_lines, 2, Lines);
+	}
+
+}
+void DrawRing(RenderWindow& window) {
+	for (int i = 0; i < ring.segments; ++i) {
+		for (int j = 0; j < ring.number_of_points; ++j) {
+			Vec2 current = *(ring.current_point + i + j);
+			Vec2 next = *(ring.next_point + i + j);
+			float current_x = current.x;
+			float current_y = current.y;
+			float next_x = next.x;
+			float next_y = next.y;
+
+			Vertex ring_lines[2];
+			ring_lines[0].position = Vector2f(current_x, current_y);
+			ring_lines[0].color = Color::Magenta;
+			ring_lines[1].position = Vector2f(next_x, next_y);
+			ring_lines[1].color = Color::Red;
+			window.draw(ring_lines, 2, Lines);
+		}
+	}
+
+}
 void Inits() {
 	InitShip();
 	InitMotherShip();
@@ -360,14 +392,14 @@ void Updates() {
 	TransformRingsPoints(20, 20);
 	TransformRingsPoints(40, 40);
 }
-void Draws() {
-	DrawShipPlayer();
-	/*DrawMotherShip();
-	DrawRing();*/
+void Draws( RenderWindow& window) {
+	DrawShipPlayer(window);
+	DrawMotherShip(window);
+	DrawRing(window);
 }
-void GameController() {
+void GameController(RenderWindow& window) {
 	Updates();
-	Draws();
+	Draws(window);
 }
 int main(int argc, char **argv) {
 
@@ -390,7 +422,7 @@ int main(int argc, char **argv) {
 				window.close();
 		}
 		window.clear();
-		GameController();
+		GameController(window);
 		
 		window.display();
 		do {
